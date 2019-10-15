@@ -9,11 +9,9 @@ import java.util.List;
  */
 public class Memoria {
     private int tempoDispo;
-    private List<Processo> processos;
 
     public Memoria(int tempoDispo) {
         this.tempoDispo = tempoDispo;
-        this.processos = new ArrayList();
     }
 
     public int getTamanho() {
@@ -31,13 +29,4 @@ public class Memoria {
     public void setTempoDispo(int tempoDispo) {
         this.tempoDispo = tempoDispo;
     }
-
-    public List<Processo> getProcessos() {
-        return processos;
-    }
-
-    public void setProcessos(Processo processos) {
-        this.processos.add(processos);
-    }
-    
 }

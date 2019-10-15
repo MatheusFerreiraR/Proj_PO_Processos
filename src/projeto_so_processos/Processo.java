@@ -8,11 +8,12 @@ public class Processo {
     private String nome;
     private int tempo;
     private int estado;
+    private int pos;
 
-    public Processo(String nome, int tempo, int estado) {
+    public Processo(int pos, String nome, int tempo) {
         this.nome = nome;
         this.tempo = tempo;
-        this.estado = estado;
+        this.pos = pos;
     }
 
     public String getNome() {
@@ -38,5 +39,14 @@ public class Processo {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+    
     
 }
