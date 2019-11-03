@@ -22,15 +22,22 @@ import projeto_so_processos.model.Processo;
  */
 public class TelaProcessos extends javax.swing.JFrame {
     private List<Processo> listaProcesso;
+    private  boolean iniciado;
+    private Temporizador temp;
     
     
     public TelaProcessos() {
         initComponents();
         
+//        inicializando flag
+        this.iniciado = false;
+        
 //        Configurando Barra de Progresso
         BarraProgresso.setStringPainted(true);
-        BarraProgresso.setValue(50);
+        BarraProgresso.setValue(0);
         BarraProgresso.setForeground(Color.GREEN);
+        
+        temp = new Temporizador();
         
         this.listaProcesso = new ArrayList();        
     }
@@ -47,7 +54,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         tabProcess = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabProcessSucess = new javax.swing.JTable();
-        jbNovoProcesso = new javax.swing.JButton();
+        jbRunSmulation = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtNameProcess = new javax.swing.JTextField();
         txtTimeProcess = new javax.swing.JTextField();
@@ -58,6 +65,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabProcessWait = new javax.swing.JTable();
+        jbNovoProcesso = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -66,20 +74,12 @@ public class TelaProcessos extends javax.swing.JFrame {
 
         tabProcessRun.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Nome", "Tempo"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tabProcessRun.setColumnSelectionAllowed(true);
         jScrollPane2.setViewportView(tabProcessRun);
         tabProcessRun.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -118,13 +118,13 @@ public class TelaProcessos extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 260, 250, 160));
 
-        jbNovoProcesso.setText("Novo processo");
-        jbNovoProcesso.addActionListener(new java.awt.event.ActionListener() {
+        jbRunSmulation.setText("Inciar Simulação");
+        jbRunSmulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbNovoProcessoActionPerformed(evt);
+                jbRunSmulationActionPerformed(evt);
             }
         });
-        getContentPane().add(jbNovoProcesso, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 120, 40));
+        getContentPane().add(jbRunSmulation, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 160, 40));
 
         jLabel1.setText("Processos em execução");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, -1, -1));
@@ -166,14 +166,68 @@ public class TelaProcessos extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 260, 160));
 
+        jbNovoProcesso.setText("Novo processo");
+        jbNovoProcesso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNovoProcessoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbNovoProcesso, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 120, 40));
+
         setSize(new java.awt.Dimension(915, 483));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbNovoProcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoProcessoActionPerformed
+    private void jbRunSmulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRunSmulationActionPerformed
+        if(this.iniciado){
+            JOptionPane.showMessageDialog(null, "Simulação já inicializada!!");
+        }else if(listaProcesso.size() == 0){
+            JOptionPane.showMessageDialog(null, "Nenhum processo adicionado");            
+        }else{
+            this.iniciado = true;
+            
+            this.RunSimulation();
+            
+            new Thread(){
+                @Override
+                public void  run(){
+                    
+                    while(BarraProgresso.getValue() < BarraProgresso.getMaximum()){
+                        try {
+                            sleep(1000);
+                            BarraProgresso.setValue(BarraProgresso.getValue() + (int) (BarraProgresso.getMaximum() * 0.1));
+                            BarraProgresso.repaint();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Temporizador.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "Concluido");
+                }
+            }.start();
+        
+        
+        }
+    }//GEN-LAST:event_jbRunSmulationActionPerformed
 
-       
-       if(txtNameProcess.getText().equals("") || txtTimeProcess.getText().equals("")){
+    private void RunSimulation(){
+        
+        DefaultTableModel jtabR =  (DefaultTableModel) tabProcessRun.getModel();
+        DefaultTableModel jtabP =  (DefaultTableModel) tabProcess.getModel();
+        
+        jtabP.removeRow(0); 
+        
+        
+        Object[] obj = {listaProcesso.get(0).getNome(), listaProcesso.get(0).getTempo()};
+        
+        jtabR.addRow(obj);
+        
+        this.BarraProgresso.setMaximum(listaProcesso.get(0).getTempo());
+        
+    }
+    
+    private void jbNovoProcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoProcessoActionPerformed
+        
+        if(txtNameProcess.getText().equals("") || txtTimeProcess.getText().equals("")){
            JOptionPane.showMessageDialog(null, "ERROR! Necessário preencher os campos");
        }else{
            try {
@@ -233,6 +287,7 @@ public class TelaProcessos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JButton jbNovoProcesso;
+    private javax.swing.JButton jbRunSmulation;
     private javax.swing.JTable tabProcess;
     private javax.swing.JTable tabProcessRun;
     private javax.swing.JTable tabProcessSucess;
@@ -242,31 +297,19 @@ public class TelaProcessos extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public class Temporizador extends Thread{
-    
-        private int limit;
-
-        public Temporizador(int limit) {
-            this.limit = limit;
-        }
+        
+        @Override
         public void run(){
-            while(BarraProgresso.getValue() <= limit){
+            while(BarraProgresso.getValue() < BarraProgresso.getMaximum()){
                 try {
-                    sleep(1000);
-                    BarraProgresso.setValue(BarraProgresso.getValue() + 1);
+                    sleep(10);
+                    BarraProgresso.setValue(BarraProgresso.getValue() + 10);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Temporizador.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            JOptionPane.showMessageDialog(null, "Concluido");
         }
-
-        public int getLimit() {
-            return limit;
-        }
-
-        public void setLimit(int limit) {
-            this.limit = limit;
-        }
-        
         
     }
     
