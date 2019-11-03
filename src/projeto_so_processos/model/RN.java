@@ -1,5 +1,6 @@
-package projeto_so_processos;
+package projeto_so_processos.model;
 
+import projeto_so_processos.model.Processo;
 import java.util.ArrayList;
 import java.util.List;
 
