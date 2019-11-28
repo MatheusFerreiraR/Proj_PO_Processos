@@ -4,16 +4,20 @@ package projeto_so_processos.model;
  *
  * @author a1980009
  */
-public class Processo {
+public class Processo implements Comparable<Processo>{
     private String nome;
-    private int tempo;
-    private int estado;
+    protected int tempo;
+    private EstadoProcesso estado;
     private int pos;
 
-    public Processo(int pos, String nome, int tempo) {
+    public Processo(String nome, int tempo, EstadoProcesso estado) {
         this.nome = nome;
         this.tempo = tempo;
-        this.pos = pos;
+        this.estado = estado;
+    }
+    
+    public void updateTime(){
+        this.tempo = this.tempo - 10;
     }
 
     public String getNome() {
@@ -32,11 +36,11 @@ public class Processo {
         this.tempo = tempo;
     }
 
-    public int getEstado() {
+    public EstadoProcesso getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(EstadoProcesso estado) {
         this.estado = estado;
     }
 
@@ -46,6 +50,17 @@ public class Processo {
 
     public void setPos(int pos) {
         this.pos = pos;
+    }
+
+    @Override
+    public int compareTo(Processo otherProcess) {
+        if( this.tempo < otherProcess.getTempo()){
+            return -1 ;
+        }else if( this.tempo > otherProcess.getTempo()){
+            return +1 ;
+        }else{
+            return 0;
+        }
     }
     
     
