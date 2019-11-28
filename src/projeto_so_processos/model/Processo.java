@@ -1,25 +1,54 @@
 package projeto_so_processos.model;
 
+import java.util.Random;
+
 /**
- *
+ * @author Professor Xavier
  * @author a1980009
  */
 public class Processo implements Comparable<Processo>{
+//    Atributos
     private String nome;
     protected int tempo;
     private EstadoProcesso estado;
-    private int pos;
+    private int posicao;
+    private Boolean complementary;
+    private int qtdComplementary;
 
-    public Processo(String nome, int tempo, EstadoProcesso estado) {
+//    Construtor
+    public Processo(String nome, int tempo, EstadoProcesso estado, Boolean complementary, int posicao) {
         this.nome = nome;
         this.tempo = tempo;
         this.estado = estado;
+        this.complementary = complementary;
+        this.addComplementary();
+        this.posicao = posicao;
     }
     
+//    My Métodos
     public void updateTime(){
         this.tempo = this.tempo - 10;
     }
+    
+    public void addComplementary() {
+        Random qtd = new Random();
+        this.qtdComplementary = qtd.nextInt(4);
+    }
+    
+//    Gets and Sets
+    public int getQtdComplementary() {
+        return qtdComplementary;
+    }
+    
+    public Boolean isComplementary() {
+        return complementary;
+    }
 
+    public void setComplementary(Boolean complementary) {
+        this.complementary = complementary;
+    }
+
+    
     public String getNome() {
         return nome;
     }
@@ -45,11 +74,11 @@ public class Processo implements Comparable<Processo>{
     }
 
     public int getPos() {
-        return pos;
+        return posicao;
     }
 
-    public void setPos(int pos) {
-        this.pos = pos;
+    public void setPos(int posicao) {
+        this.posicao = posicao;
     }
 
     @Override
