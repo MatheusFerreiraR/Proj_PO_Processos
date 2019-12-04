@@ -34,8 +34,7 @@ public class Processo implements Comparable<Processo>{
     
     public void addComplementary() {
         
-        if(this.complementary){
-            this.qtdComplementary = 0;
+        if(this.complementary){this.qtdComplementary = 0;
         }else{
             Random qtd = new Random();
             this.qtdComplementary = qtd.nextInt(4);

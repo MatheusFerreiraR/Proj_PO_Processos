@@ -14,7 +14,7 @@ public enum EstadoProcesso {
     EXECUTANDO("Executando"),
     CONCLUIDO("Concluido"),
     BLOQUEADO("Bloqueado"),
-    INICIADO("Iniciado"),
+    PRONTO("Pronto"),
     ESPERANDO("Esperando");
     
     private String nameImg;

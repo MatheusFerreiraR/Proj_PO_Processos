@@ -55,7 +55,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         this.listaProcessWai = new ArrayList<>();
         this.listaProcessSuc = new ArrayList<>();
         
-        this.createListProcess("Processo - ", false, 2);
+        this.createListProcess("Processo - ", false, 10);
     }
     
     @SuppressWarnings("unchecked")
@@ -207,7 +207,6 @@ public class TelaProcessos extends javax.swing.JFrame {
         for (int i = 0; i < qtdProcess; i++) {
             Processo p = new Processo(name + (i+1), tempo.nextInt(15)+1, EstadoProcesso.PRONTO, complementary, (i+1));
             this.listaProcesso.add(p);
-//            System.out.println(this.listaProcesso.get(i).getNome() + " => " + this.listaProcesso.get(i).getQtdComplementary());
         }
         
         this.addTableProcess();
