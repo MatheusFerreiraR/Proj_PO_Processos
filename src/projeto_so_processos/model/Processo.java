@@ -14,11 +14,13 @@ public class Processo implements Comparable<Processo>{
     private int posicao;
     private Boolean complementary;
     private int qtdComplementary;
+    private int tempoTotal;
 
 //    Construtor
     public Processo(String nome, int tempo, EstadoProcesso estado, Boolean complementary, int posicao) {
         this.nome = nome;
         this.tempo = tempo;
+        this.tempoTotal = tempo;
         this.estado = estado;
         this.complementary = complementary;
         this.addComplementary();
@@ -31,11 +33,26 @@ public class Processo implements Comparable<Processo>{
     }
     
     public void addComplementary() {
-        Random qtd = new Random();
-        this.qtdComplementary = qtd.nextInt(4);
+        
+        if(this.complementary){
+            this.qtdComplementary = 0;
+        }else{
+            Random qtd = new Random();
+            this.qtdComplementary = qtd.nextInt(4);
+        }
     }
     
 //    Gets and Sets
+
+    public int getTempoTotal() {
+        return tempoTotal;
+    }
+
+    public void setTempoTotal(int tempoTotal) {
+        this.tempoTotal = tempoTotal;
+    }
+    
+    
     public int getQtdComplementary() {
         return qtdComplementary;
     }

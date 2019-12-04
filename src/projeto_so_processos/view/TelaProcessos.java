@@ -55,9 +55,8 @@ public class TelaProcessos extends javax.swing.JFrame {
         this.listaProcessWai = new ArrayList<>();
         this.listaProcessSuc = new ArrayList<>();
         
-        this.createListProcess("Processo", false, 10);
+        this.createListProcess("Processo - ", false, 10);
     }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -83,7 +82,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(BarraProgresso, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 260, 30));
+        getContentPane().add(BarraProgresso, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 260, 30));
 
         tabProcessRun.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,18 +96,18 @@ public class TelaProcessos extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tabProcessRun);
         tabProcessRun.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 260, 50));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 260, 50));
 
         tabProcess.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nome", "Tempo", "Estado"
+                "Nome", "Tempo", "Dependência", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false
+                true, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -117,19 +116,27 @@ public class TelaProcessos extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tabProcess);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 260, 310));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 380, 310));
 
         tabProcessSucess.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nome", "Estado"
+                "Nome", "Tempo", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(tabProcessSucess);
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 50, 250, 310));
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 50, 250, 310));
 
         jbRunSmulation.setText("Inciar Simulação");
         jbRunSmulation.addActionListener(new java.awt.event.ActionListener() {
@@ -137,19 +144,19 @@ public class TelaProcessos extends javax.swing.JFrame {
                 jbRunSmulationActionPerformed(evt);
             }
         });
-        getContentPane().add(jbRunSmulation, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 370, 160, 50));
+        getContentPane().add(jbRunSmulation, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 370, 160, 50));
 
         jLabel1.setText("Criando Processo Complementar");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 310, -1, -1));
 
         jLabel4.setText("Lista de Processos");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
         jLabel5.setText("Processos em andamento");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, -1, -1));
 
         jLabel6.setText("Processos concluidos");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 30, -1, -1));
 
         tabProcessWait.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -169,13 +176,13 @@ public class TelaProcessos extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(tabProcessWait);
 
-        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 260, 310));
-        getContentPane().add(BarraProgressoCriacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 330, 260, 30));
+        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 50, 260, 310));
+        getContentPane().add(BarraProgressoCriacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 330, 260, 30));
 
         jLabel2.setText("Processos em execução");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, -1, -1));
 
-        setSize(new java.awt.Dimension(1155, 488));
+        setSize(new java.awt.Dimension(1360, 488));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -198,7 +205,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         Random tempo = new Random();
         
         for (int i = 0; i < qtdProcess; i++) {
-            Processo p = new Processo(name + " - "+(i+1), tempo.nextInt(15)+1, EstadoProcesso.INICIADO, complementary, (i+1));
+            Processo p = new Processo(name + (i+1), tempo.nextInt(15)+1, EstadoProcesso.INICIADO, complementary, (i+1));
             this.listaProcesso.add(p);
 //            System.out.println(this.listaProcesso.get(i).getNome() + " => " + this.listaProcesso.get(i).getQtdComplementary());
         }
@@ -263,7 +270,12 @@ public class TelaProcessos extends javax.swing.JFrame {
 //        System.out.println("QTD PRO: " + this.listaProcesso.size());
         
         for (Processo process : this.listaProcesso) {
-            Object[] obj = {process.getNome(), process.getTempo(), process.getEstado()};
+            Object[] obj = {
+                process.getNome(), 
+                process.getTempo(),
+                process.getQtdComplementary(),
+                process.getEstado()
+            };
             jtab.addRow(obj);
         }
     }
@@ -290,7 +302,7 @@ public class TelaProcessos extends javax.swing.JFrame {
 
         if(this.processRun.getTempo() <= 0){
             this.processRun.setEstado(EstadoProcesso.CONCLUIDO);
-            Object[] obj = {this.processRun.getNome(), this.processRun.getEstado()};
+            Object[] obj = {this.processRun.getNome(), this.processRun.getTempoTotal(), this.processRun.getEstado()};
             this.listaProcessSuc.add(this.processRun);
             jtabSuc.addRow(obj);
         }else{
@@ -422,7 +434,7 @@ public class TelaProcessos extends javax.swing.JFrame {
                 }
             }
             BarraProgressoCriacao.setValue(0);
-            createListProcess(processRun.getPos() + ".Comp", true, processRun.getQtdComplementary());
+            createListProcess("Comp " + processRun.getPos() + ".", true, processRun.getQtdComplementary());
             processRun.setComplementary(true);
             simulation();
         }
