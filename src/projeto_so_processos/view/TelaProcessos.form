@@ -207,21 +207,21 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lista de Processos"/>
+        <Property name="text" type="java.lang.String" value="Lista de Processos Prontos"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="230" y="30" width="-1" height="-1"/>
+          <AbsoluteConstraints x="220" y="30" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Processos em andamento"/>
+        <Property name="text" type="java.lang.String" value="Processos bloqueados"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="850" y="30" width="-1" height="-1"/>
+          <AbsoluteConstraints x="870" y="30" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

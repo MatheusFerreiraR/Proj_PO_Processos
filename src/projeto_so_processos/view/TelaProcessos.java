@@ -55,7 +55,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         this.listaProcessWai = new ArrayList<>();
         this.listaProcessSuc = new ArrayList<>();
         
-        this.createListProcess("Processo - ", false, 10);
+        this.createListProcess("Processo - ", false, 2);
     }
     
     @SuppressWarnings("unchecked")
@@ -149,11 +149,11 @@ public class TelaProcessos extends javax.swing.JFrame {
         jLabel1.setText("Criando Processo Complementar");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 310, -1, -1));
 
-        jLabel4.setText("Lista de Processos");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
+        jLabel4.setText("Lista de Processos Prontos");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
 
-        jLabel5.setText("Processos em andamento");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, -1, -1));
+        jLabel5.setText("Processos bloqueados");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 30, -1, -1));
 
         jLabel6.setText("Processos concluidos");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 30, -1, -1));
@@ -205,7 +205,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         Random tempo = new Random();
         
         for (int i = 0; i < qtdProcess; i++) {
-            Processo p = new Processo(name + (i+1), tempo.nextInt(15)+1, EstadoProcesso.INICIADO, complementary, (i+1));
+            Processo p = new Processo(name + (i+1), tempo.nextInt(15)+1, EstadoProcesso.PRONTO, complementary, (i+1));
             this.listaProcesso.add(p);
 //            System.out.println(this.listaProcesso.get(i).getNome() + " => " + this.listaProcesso.get(i).getQtdComplementary());
         }
@@ -306,7 +306,7 @@ public class TelaProcessos extends javax.swing.JFrame {
             this.listaProcessSuc.add(this.processRun);
             jtabSuc.addRow(obj);
         }else{
-            this.processRun.setEstado(EstadoProcesso.ESPERANDO);
+            this.processRun.setEstado(EstadoProcesso.BLOQUEADO);
             Object[] obj = {this.processRun.getNome(), this.processRun.getTempo(), this.processRun.getEstado()};
             this.listaProcessWai.add(this.processRun);
             jtabWait.addRow(obj);
@@ -386,6 +386,7 @@ public class TelaProcessos extends javax.swing.JFrame {
         public void  run(){
             try {
                 sleep(4500);
+                listaProcessWai.get(0).setEstado(EstadoProcesso.PRONTO);
                 listaProcesso.add(listaProcessWai.get(0));
                 listaProcessWai.remove(0);
                 
